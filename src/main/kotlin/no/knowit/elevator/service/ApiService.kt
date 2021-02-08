@@ -17,26 +17,23 @@ enum class Direction {
  */
 class ApiService {
 
-
     val FLOOR_DISTANCE = 3F // distance between 2 floors = 3 meters
-    val TRAVEL_SPEED = 10F // elevator travel speed = 10 meters / second
-    val OPENING_TIME = 20 // total time for doors to open, wait and close = 30 seconds
+    val TRAVEL_SPEED = 5F // elevator travel speed = 5 meters / second
+    val OPENING_TIME = 3 // total time for doors to open, wait and close = 3 seconds
 
     private val motor = MotorController(FLOOR_DISTANCE, TRAVEL_SPEED, OPENING_TIME)
 
+    private var isEmergencyStop = false
     private var currentDirection = Direction.STILL
     private var currentFloor = 0
 
     private var callList = mutableListOf<Int>()
-
-    private var isEmergencyStop = false
 
     init {
         thread(start = true) {
             updatePosition()
         }
     }
-
 
     /**
      * Called by GET /direction to return the elevator's direction.
@@ -97,7 +94,6 @@ class ApiService {
         return nbFloors
     }
 
-
     /**
      * Called by POST /stop to return the time to reach that floor
      */
@@ -135,8 +131,8 @@ class ApiService {
         motor.stop()
         currentDirection = Direction.STILL
 
-        motor.openDoors() // realistically, this should sleep for OPENING_TIME
-        callList.filter { value -> value != currentFloor }
+        motor.openDoors()
+        callList.removeIf { value -> value == currentFloor }
     }
 
     private fun updateDirection() {
@@ -149,12 +145,11 @@ class ApiService {
     }
 
     private fun moveOneFloor() {
-        motor.move(currentDirection) // realistically, this should sleep for FLOOR_DISTANCE / TRAVEL_SPEED seconds
+        motor.move(currentDirection)
         if (currentDirection == Direction.UP) {
             currentFloor++
         } else {
             currentFloor--
         }
     }
-
 }

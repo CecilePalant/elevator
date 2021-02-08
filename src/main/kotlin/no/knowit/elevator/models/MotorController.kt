@@ -1,6 +1,5 @@
 package no.knowit.elevator.models
 
-import mu.KotlinLogging
 import no.knowit.elevator.service.Direction
 
 
@@ -10,20 +9,19 @@ import no.knowit.elevator.service.Direction
  */
 class MotorController(private val floorDistance: Float, private val travelSpeed: Float, private val openingTime: Int) {
 
-    private val logger = KotlinLogging.logger {}
 
     fun stop() {
-        logger.debug { "Elevator: stopped" }
+        println("Elevator: stopped")
     }
 
     fun move(direction: Direction) {
-        logger.debug { "Elevator: moving 1 floor $direction" }
+        println("Elevator: moving 1 floor $direction")
         Thread.sleep((floorDistance / travelSpeed * 1000L).toLong())
     }
 
     fun openDoors() {
-        logger.debug { "Elevator: opening doors" }
+        println("Elevator: opening doors")
         Thread.sleep(openingTime * 1000L)
-        logger.debug { "Elevator: closing doors" }
+        println("Elevator: closing doors")
     }
 }
