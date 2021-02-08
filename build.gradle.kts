@@ -21,7 +21,6 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
     implementation("ch.qos.logback:logback-classic:1.2.3")
-    implementation("io.ktor:ktor-client-logging-native:1.5.0")
     implementation("io.ktor:ktor-server-core:1.5.0")
     implementation("io.ktor:ktor-server-netty:1.5.0")
     implementation("io.ktor:ktor-html-builder:1.5.0")
@@ -31,6 +30,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     testImplementation("io.ktor:ktor-server-tests:1.5.0")
+
+    implementation("io.github.microutils:kotlin-logging:1.12.0")
+
 }
 
 tasks.withType<KotlinCompile> {

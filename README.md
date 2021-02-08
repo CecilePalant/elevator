@@ -17,7 +17,7 @@ Kotlin Rest API using Gradle
 
 ## Assumptions
 The elevator is connected to the control system while being still on the floor nb 0
-Number of floors to cover is know and set to 5 here
+Only floors with numbers can call the API
 Distance between each floor is the same and set to 3 meters
 Travel speed is constant and has no acceleration / deceleration = 10 meters / second
 The motors take care of opening and closing the doors and manage the time for which the door remains open
